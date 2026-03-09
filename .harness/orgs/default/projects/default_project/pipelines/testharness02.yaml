@@ -1,0 +1,31 @@
+pipeline:
+  name: sample-pipeline
+  identifier: sample_pipeline
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: Build Stage
+        identifier: build_stage
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: false
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              namespace: default
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run Script
+                  identifier: run_script
+                  spec:
+                    connectorRef: account.harnessImage
+                    image: alpine
+                    shell: Sh
+                    command: |
+                      echo "Hello from Harness Pipeline"
+                      echo "Pipeline executed successfully"
